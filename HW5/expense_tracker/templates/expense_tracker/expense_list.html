@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список витрат</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1000px; margin: 50px auto; padding: 20px; }
+        h1 { color: #333; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #4CAF50; color: white; }
+        tr:hover { background-color: #f5f5f5; }
+        .total { font-size: 1.5em; font-weight: bold; color: #4CAF50; margin: 20px 0; }
+        .btn { padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer; text-decoration: none; display: inline-block; margin: 10px 0; }
+        .btn:hover { background-color: #45a049; }
+        .btn-delete { background-color: #f44336; padding: 5px 10px; }
+        .btn-delete:hover { background-color: #da190b; }
+    </style>
+</head>
+<body>
+    <h1>Облік витрат</h1>
+    <a href="{% url 'add_expense' %}" class="btn">Додати витрату</a>
+
+    <div class="total">Загальна сума витрат: {{ total }} грн</div>
+
+    {% if expenses %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Назва</th>
+                <th>Сума (грн)</th>
+                <th>Категорія</th>
+                <th>Дата</th>
+                <th>Опис</th>
+                <th>Дія</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for expense in expenses %}
+            <tr>
+                <td>{{ expense.id }}</td>
+                <td>{{ expense.name }}</td>
+                <td>{{ expense.amount }}</td>
+                <td>{{ expense.category }}</td>
+                <td>{{ expense.date }}</td>
+                <td>{{ expense.description }}</td>
+                <td>
+                    <a href="{% url 'delete_expense' expense.id %}" class="btn btn-delete" onclick="return confirm('Видалити витрату?')">Видалити</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Витрат поки немає. Додайте першу витрату!</p>
+    {% endif %}
+</body>
+</html>

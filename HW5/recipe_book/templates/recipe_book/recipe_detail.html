@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ recipe.name }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+        h1 { color: #FF6347; }
+        h2 { color: #333; margin-top: 30px; }
+        .description { background-color: #f9f9f9; padding: 15px; border-left: 4px solid #FF6347; margin: 20px 0; }
+        .section { margin: 20px 0; }
+        .ingredients { white-space: pre-wrap; background-color: #fff3cd; padding: 15px; border-radius: 4px; }
+        .instructions { white-space: pre-wrap; background-color: #d1ecf1; padding: 15px; border-radius: 4px; }
+        .btn { padding: 10px 20px; background-color: #FF6347; color: white; border: none; cursor: pointer; text-decoration: none; display: inline-block; margin: 10px 5px 10px 0; border-radius: 4px; }
+        .btn:hover { background-color: #E5533D; }
+        .btn-secondary { background-color: #6c757d; }
+        .btn-secondary:hover { background-color: #5a6268; }
+    </style>
+</head>
+<body>
+    <h1>{{ recipe.name }}</h1>
+
+    <div class="description">
+        <strong>Опис:</strong> {{ recipe.description }}
+    </div>
+
+    <div class="section">
+        <h2>Інгредієнти:</h2>
+        <div class="ingredients">{{ recipe.ingredients }}</div>
+    </div>
+
+    <div class="section">
+        <h2>Інструкція з приготування:</h2>
+        <div class="instructions">{{ recipe.instructions }}</div>
+    </div>
+
+    <div>
+        <a href="{% url 'recipe_list' %}" class="btn btn-secondary">Назад до списку</a>
+        <a href="{% url 'edit_recipe' recipe.id %}" class="btn">Редагувати</a>
+    </div>
+</body>
+</html>

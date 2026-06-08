@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Актори</title>
+</head>
+<body>
+    <h1>Актори</h1>
+    <p>
+        <a href="{% url 'add_actor' %}">Додати актора</a> |
+        <a href="{% url 'movie_list' %}">Фільми</a>
+    </p>
+
+    {% if actors %}
+    <table border="1">
+        <tr>
+            <th>П.І.Б.</th>
+            <th>Дата народження</th>
+            <th>Дії</th>
+        </tr>
+        {% for actor in actors %}
+        <tr>
+            <td>{{ actor.full_name }}</td>
+            <td>{{ actor.birth_date }}</td>
+            <td><a href="{% url 'actor_info' actor.id %}">Детальніше</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>Акторів немає</p>
+    {% endif %}
+</body>
+</html>

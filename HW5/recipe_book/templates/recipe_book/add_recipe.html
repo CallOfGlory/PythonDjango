@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Додати рецепт</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+        h1 { color: #333; }
+        form { background-color: #f9f9f9; padding: 20px; border-radius: 8px; }
+        label { display: block; margin: 15px 0 5px; font-weight: bold; }
+        input, textarea { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        textarea { min-height: 100px; }
+        .btn { padding: 10px 20px; background-color: #FF6347; color: white; border: none; cursor: pointer; border-radius: 4px; margin-top: 10px; }
+        .btn:hover { background-color: #E5533D; }
+        .btn-secondary { background-color: #6c757d; margin-left: 10px; }
+        .btn-secondary:hover { background-color: #5a6268; }
+    </style>
+</head>
+<body>
+    <h1>Додати новий рецепт</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="name">Назва рецепту:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="description">Опис:</label>
+        <textarea id="description" name="description" required></textarea>
+
+        <label for="ingredients">Інгредієнти (кожен з нового рядка):</label>
+        <textarea id="ingredients" name="ingredients" required></textarea>
+
+        <label for="instructions">Інструкція з приготування:</label>
+        <textarea id="instructions" name="instructions" rows="6" required></textarea>
+
+        <button type="submit" class="btn">Додати рецепт</button>
+        <a href="{% url 'recipe_list' %}" class="btn btn-secondary">Скасувати</a>
+    </form>
+</body>
+</html>

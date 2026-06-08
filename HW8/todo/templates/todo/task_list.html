@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Планувальник задач</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #555;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        .messages {
+            margin-bottom: 20px;
+        }
+        .message {
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .add-task-btn {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .add-task-btn:hover {
+            background-color: #45a049;
+        }
+        .task-list {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .task-item {
+            padding: 15px;
+            margin: 5px 0;
+            border-left: 4px solid #4CAF50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .task-content {
+            flex: 1;
+        }
+        .task-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .task-actions a, .task-actions button {
+            padding: 6px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-toggle {
+            background-color: #2196F3;
+            color: white;
+        }
+        .btn-toggle:hover {
+            background-color: #0b7dda;
+        }
+        .btn-edit {
+            background-color: #ff9800;
+            color: white;
+        }
+        .btn-edit:hover {
+            background-color: #e68900;
+        }
+        .btn-delete {
+            background-color: #f44336;
+            color: white;
+        }
+        .btn-delete:hover {
+            background-color: #da190b;
+        }
+        .row-light {
+            background-color: #f9f9f9;
+        }
+        .row-dark {
+            background-color: #e8e8e8;
+        }
+        .completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+        .completed-label {
+            color: #4CAF50;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .time {
+            font-weight: bold;
+            color: #2196F3;
+            margin-right: 10px;
+        }
+        .empty-message {
+            text-align: center;
+            color: #999;
+            font-size: 18px;
+            padding: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h1>📋 Планувальник задач на день</h1>
+
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <a href="{% url 'task_create' %}" class="add-task-btn">➕ Додати завдання</a>
+
+    <div class="task-list">
+        {% if tasks %}
+            {% for category, category_tasks in grouped_tasks.items %}
+                <h2>{{ category }}</h2>
+                <ol>
+                    {% for task in category_tasks %}
+                        <li class="task-item {% cycle 'row-light' 'row-dark' %}">
+                            <div class="task-content">
+                                <span class="time">{{ task.time|time:"H:i" }}</span>
+                                <span {% if task.completed %}class="completed"{% endif %}>
+                                    {{ task.title }}
+                                </span>
+                                {% if task.completed %}
+                                    <span class="completed-label">(виконано)</span>
+                                {% endif %}
+                            </div>
+                            <div class="task-actions">
+                                <a href="{% url 'task_toggle' task.pk %}" class="btn-toggle">
+                                    {% if task.completed %}✗ Не виконано{% else %}✓ Виконано{% endif %}
+                                </a>
+                                <a href="{% url 'task_edit' task.pk %}" class="btn-edit">✏️ Редагувати</a>
+                                <a href="{% url 'task_delete' task.pk %}" class="btn-delete">🗑️ Видалити</a>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ol>
+            {% endfor %}
+        {% else %}
+            <p class="empty-message">На сьогодні задач немає</p>
+        {% endif %}
+    </div>
+</body>
+</html>

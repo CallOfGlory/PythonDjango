@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ actor.full_name }}</title>
+</head>
+<body>
+    <h1>{{ actor.full_name }}</h1>
+
+    <p><strong>Дата народження:</strong> {{ actor.birth_date }}</p>
+
+    {% if actor.photo_url %}
+    <p><strong>Фото:</strong> <a href="{{ actor.photo_url }}" target="_blank">Переглянути</a></p>
+    {% endif %}
+
+    {% if actor.biography %}
+    <p><strong>Біографія:</strong><br>{{ actor.biography }}</p>
+    {% endif %}
+
+    <h2>Фільмографія</h2>
+    {% if roles %}
+    <ul>
+        {% for movie_actor in roles %}
+        <li>
+            <a href="{% url 'movie_full_info' movie_actor.movie.id %}">{{ movie_actor.movie.title }}</a> ({{ movie_actor.movie.release_year }}) - {{ movie_actor.role }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Фільмографія відсутня</p>
+    {% endif %}
+
+    <p>
+        <a href="{% url 'actor_list' %}">Назад до акторів</a> |
+        <a href="{% url 'movie_list' %}">До фільмів</a>
+    </p>
+</body>
+</html>

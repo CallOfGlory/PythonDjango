@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ movie.title }}</title>
+</head>
+<body>
+    <h1>{{ movie.title }}</h1>
+
+    <p><strong>Опис:</strong> {{ movie.description }}</p>
+
+    <h2>Інформація про фільм</h2>
+    <ul>
+        <li><strong>Жанр:</strong> {{ movie.genre }}</li>
+        <li><strong>Рік випуску:</strong> {{ movie.release_year }}</li>
+        <li><strong>Режисер:</strong> {{ movie.director }}</li>
+        <li><strong>Тривалість:</strong> {{ movie.duration }} хв</li>
+        <li><strong>Студія:</strong> {{ movie.studio }}</li>
+    </ul>
+
+    <h2>Актори</h2>
+    {% if actors %}
+    <ul>
+        {% for movie_actor in actors %}
+        <li>
+            <a href="{% url 'actor_info' movie_actor.actor.id %}">{{ movie_actor.actor.full_name }}</a> - {{ movie_actor.role }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Акторів немає</p>
+    {% endif %}
+
+    <p>
+        <a href="{% url 'add_movie_actor' movie.id %}">Додати актора</a> |
+        <a href="{% url 'movie_short_info' movie.id %}">Коротка інформація</a> |
+        <a href="{% url 'movie_list' %}">Назад</a>
+    </p>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Додати актора</title>
+</head>
+<body>
+    <h1>Додати актора</h1>
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            <label>П.І.Б.:</label><br>
+            <input type="text" name="full_name" required>
+        </p>
+        <p>
+            <label>Дата народження:</label><br>
+            <input type="date" name="birth_date" required>
+        </p>
+        <p>
+            <label>Біографія:</label><br>
+            <textarea name="biography" rows="4" cols="50"></textarea>
+        </p>
+        <p>
+            <label>URL фото:</label><br>
+            <input type="url" name="photo_url">
+        </p>
+        <button type="submit">Додати</button>
+        <a href="{% url 'actor_list' %}">Скасувати</a>
+    </form>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Додати фільм</title>
+</head>
+<body>
+    <h1>Додати фільм</h1>
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            <label>Назва:</label><br>
+            <input type="text" name="title" required>
+        </p>
+        <p>
+            <label>Жанр:</label><br>
+            <input type="text" name="genre" required>
+        </p>
+        <p>
+            <label>Режисер:</label><br>
+            <input type="text" name="director" required>
+        </p>
+        <p>
+            <label>Рік випуску:</label><br>
+            <input type="number" name="release_year" required>
+        </p>
+        <p>
+            <label>Тривалість (хв):</label><br>
+            <input type="number" name="duration" required>
+        </p>
+        <p>
+            <label>Студія:</label><br>
+            <input type="text" name="studio" required>
+        </p>
+        <p>
+            <label>Опис:</label><br>
+            <textarea name="description" rows="4" cols="50"></textarea>
+        </p>
+        <button type="submit">Додати</button>
+        <a href="{% url 'movie_list' %}">Скасувати</a>
+    </form>
+</body>
+</html>

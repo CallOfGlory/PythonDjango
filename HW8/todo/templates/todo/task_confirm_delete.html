@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Видалити завдання</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .confirm-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .warning-message {
+            background-color: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            color: #856404;
+        }
+        .task-info {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #f44336;
+        }
+        .task-info p {
+            margin: 5px 0;
+        }
+        .task-info strong {
+            color: #333;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .btn-delete {
+            background-color: #f44336;
+            color: white;
+        }
+        .btn-delete:hover {
+            background-color: #da190b;
+        }
+        .btn-cancel {
+            background-color: #6c757d;
+            color: white;
+        }
+        .btn-cancel:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <h1>🗑️ Видалити завдання</h1>
+
+    <div class="confirm-container">
+        <div class="warning-message">
+            <strong>⚠️ Увага!</strong> Ви впевнені, що хочете видалити це завдання? Цю дію неможливо скасувати.
+        </div>
+
+        <div class="task-info">
+            <p><strong>Назва:</strong> {{ task.title }}</p>
+            <p><strong>Час:</strong> {{ task.time|time:"H:i" }}</p>
+            <p><strong>Категорія:</strong> {{ task.category }}</p>
+            <p><strong>Статус:</strong> {% if task.completed %}Виконано{% else %}Не виконано{% endif %}</p>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="btn-group">
+                <button type="submit" class="btn btn-delete">🗑️ Так, видалити</button>
+                <a href="{% url 'task_list' %}" class="btn btn-cancel">❌ Скасувати</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Фільми</title>
+</head>
+<body>
+    <h1>Фільми</h1>
+    <p>
+        <a href="{% url 'add_movie' %}">Додати фільм</a> |
+        <a href="{% url 'actor_list' %}">Актори</a>
+    </p>
+
+    {% if movies %}
+    <table border="1">
+        <tr>
+            <th>Назва</th>
+            <th>Рік</th>
+            <th>Жанр</th>
+            <th>Режисер</th>
+            <th>Дії</th>
+        </tr>
+        {% for movie in movies %}
+        <tr>
+            <td>{{ movie.title }}</td>
+            <td>{{ movie.release_year }}</td>
+            <td>{{ movie.genre }}</td>
+            <td>{{ movie.director }}</td>
+            <td>
+                <a href="{% url 'movie_full_info' movie.id %}">Повна</a> |
+                <a href="{% url 'movie_short_info' movie.id %}">Коротка</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>Фільмів немає</p>
+    {% endif %}
+</body>
+</html>

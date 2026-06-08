@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Додати витрату</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; }
+        h1 { color: #333; }
+        form { background-color: #f9f9f9; padding: 20px; border-radius: 8px; }
+        label { display: block; margin: 10px 0 5px; font-weight: bold; }
+        input, textarea, select { width: 100%; padding: 8px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        .btn { padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer; border-radius: 4px; }
+        .btn:hover { background-color: #45a049; }
+        .btn-secondary { background-color: #888; margin-left: 10px; }
+        .btn-secondary:hover { background-color: #666; }
+    </style>
+</head>
+<body>
+    <h1>Додати нову витрату</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="name">Назва:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="amount">Сума (грн):</label>
+        <input type="number" step="0.01" id="amount" name="amount" required>
+
+        <label for="category">Категорія:</label>
+        <input type="text" id="category" name="category" required>
+
+        <label for="description">Опис:</label>
+        <textarea id="description" name="description" rows="3"></textarea>
+
+        <button type="submit" class="btn">Додати витрату</button>
+        <a href="{% url 'expense_list' %}" class="btn btn-secondary">Скасувати</a>
+    </form>
+</body>
+</html>

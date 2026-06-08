@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ movie.title }}</title>
+</head>
+<body>
+    <h1>{{ movie.title }}</h1>
+    <p><strong>Рік випуску:</strong> {{ movie.release_year }}</p>
+    <p><strong>Жанр:</strong> {{ movie.genre }}</p>
+
+    <p>
+        <a href="{% url 'movie_full_info' movie.id %}">Повна інформація</a> |
+        <a href="{% url 'movie_list' %}">Назад</a>
+    </p>
+</body>
+</html>
