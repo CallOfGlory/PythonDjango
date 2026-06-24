@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Колекція фільмів{% endblock %}</title>
+    <link rel="stylesheet" href="{% load static %}{% static 'movies/css/styles.css' %}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="{% url 'movie_list' %}">🎬 MovieCollection</a>
+            <a class="btn" href="{% url 'movie_create' %}">+ Додати фільм</a>
+        </div>
+    </header>
+
+    <main class="container site-main">
+        {% if messages %}
+            <ul class="messages">
+                {% for m in messages %}<li>{{ m }}</li>{% endfor %}
+            </ul>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

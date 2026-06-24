@@ -1,0 +1,15 @@
+{% extends 'movies/base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+    <form method="post" class="form-card">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-actions">
+            <button type="submit" class="btn">Зберегти</button>
+            <a class="btn btn-secondary" href="{% url 'movie_list' %}">Скасувати</a>
+        </div>
+    </form>
+{% endblock %}

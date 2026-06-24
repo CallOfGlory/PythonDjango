@@ -1,0 +1,39 @@
+{% extends 'movies/base.html' %}
+
+{% block title %}Фільми — Колекція{% endblock %}
+
+{% block content %}
+    <h1>Колекція фільмів</h1>
+
+    <div class="toolbar">
+        <div class="sort">
+            <span class="muted">Сортувати за:</span>
+            <a href="{{ sort_links.title }}" class="{% if current_sort == 'title' %}active{% endif %}">
+                Назвою {% if current_sort == 'title' %}{% if current_dir == 'asc' %}↑{% else %}↓{% endif %}{% endif %}
+            </a>
+            <a href="{{ sort_links.rating }}" class="{% if current_sort == 'rating' %}active{% endif %}">
+                Рейтингом {% if current_sort == 'rating' %}{% if current_dir == 'asc' %}↑{% else %}↓{% endif %}{% endif %}
+            </a>
+            <a href="{{ sort_links.release_date }}" class="{% if current_sort == 'release_date' %}active{% endif %}">
+                Датою випуску {% if current_sort == 'release_date' %}{% if current_dir == 'asc' %}↑{% else %}↓{% endif %}{% endif %}
+            </a>
+        </div>
+    </div>
+
+    <section class="movies-grid">
+        {% for movie in movies %}
+            <article class="movie-card">
+                <span class="rating">⭐ {{ movie.rating }}/5</span>
+                <h2><a href="{% url 'movie_detail' movie.pk %}">{{ movie.title }}</a></h2>
+                <div class="meta">{{ movie.director }} · {{ movie.release_date|date:"d.m.Y" }}</div>
+                <div class="actions">
+                    <a href="{% url 'movie_detail' movie.pk %}">Детальніше</a>
+                    <a href="{% url 'movie_update' movie.pk %}">Редагувати</a>
+                    <a href="{% url 'movie_delete' movie.pk %}">Видалити</a>
+                </div>
+            </article>
+        {% empty %}
+            <p>Фільмів поки немає. <a href="{% url 'movie_create' %}">Додайте перший!</a></p>
+        {% endfor %}
+    </section>
+{% endblock %}

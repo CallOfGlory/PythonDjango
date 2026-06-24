@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Новинний портал{% endblock %}</title>
+    <link rel="stylesheet" href="{% load static %}{% static 'news/css/styles.css' %}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="{% url 'home' %}">📰 NewsPortal</a>
+            <nav class="main-nav">
+                {% for cat in nav_categories %}
+                    <a href="{{ cat.url }}">{{ cat.name }}</a>
+                {% empty %}
+                    <span class="muted">Категорій ще немає</span>
+                {% endfor %}
+            </nav>
+        </div>
+    </header>
+
+    <main class="container site-main">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <a class="footer-brand" href="{% url 'home' %}">NewsPortal</a>
+            <span class="muted">© {% now "Y" %} Усі права захищені</span>
+        </div>
+    </footer>
+</body>
+</html>

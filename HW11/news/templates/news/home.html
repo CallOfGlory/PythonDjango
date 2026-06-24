@@ -1,0 +1,21 @@
+{% extends 'news/base.html' %}
+
+{% block title %}Головна — Новинний портал{% endblock %}
+
+{% block content %}
+    <section class="hero">
+        <h1>Новинний портал</h1>
+        <p>Оберіть категорію, щоб переглянути новини:</p>
+    </section>
+
+    <section class="categories-grid">
+        {% for category in categories %}
+            <a class="category-card" href="{% url 'category_detail' category.slug %}">
+                <h2>{{ category.name }}</h2>
+                <p class="muted">{{ category.articles.count }} новин</p>
+            </a>
+        {% empty %}
+            <p class="muted">Поки що немає жодної категорії.</p>
+        {% endfor %}
+    </section>
+{% endblock %}

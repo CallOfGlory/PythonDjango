@@ -1,0 +1,31 @@
+{% extends 'news/base.html' %}
+
+{% block title %}{{ category.name }} — Новини{% endblock %}
+
+{% block content %}
+    <nav class="breadcrumb">
+        <a href="{% url 'home' %}">Головна</a> / <span>{{ category.name }}</span>
+    </nav>
+
+    <h1>{{ category.name }}</h1>
+
+    <section class="articles-grid">
+        {% for article in articles %}
+            <article class="article-card">
+                {% if article.image %}
+                    <a href="{% url 'article_detail' article.pk %}">
+                        <img src="{{ article.image.url }}" alt="{{ article.title }}">
+                    </a>
+                {% else %}
+                    <a href="{% url 'article_detail' article.pk %}" class="article-card__placeholder">
+                        Без зображення
+                    </a>
+                {% endif %}
+                <h2>{{ article.title }}</h2>
+                <a class="read-more" href="{% url 'article_detail' article.pk %}">Читати далі →</a>
+            </article>
+        {% empty %}
+            <p class="muted">У цій категорії поки що немає новин.</p>
+        {% endfor %}
+    </section>
+{% endblock %}

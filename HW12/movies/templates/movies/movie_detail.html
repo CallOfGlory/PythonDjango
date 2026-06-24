@@ -1,0 +1,27 @@
+{% extends 'movies/base.html' %}
+
+{% block title %}{{ movie.title }}{% endblock %}
+
+{% block content %}
+    <div class="movie-detail">
+        <div class="rating-big">⭐ Рейтинг: {{ movie.rating }}/5
+            <span class="stars">
+                {% with ''|center:5 as range %}
+                    {% for i in "12345" %}
+                        {% if forloop.counter <= movie.rating %}★{% else %}☆{% endif %}
+                    {% endfor %}
+                {% endwith %}
+            </span>
+        </div>
+        <h1>{{ movie.title }}</h1>
+        <p class="meta"><strong>Режисер:</strong> {{ movie.director }}</p>
+        <p class="meta"><strong>Дата випуску:</strong> {{ movie.release_date|date:"d.m.Y" }}</p>
+        <p>{{ movie.description|linebreaks }}</p>
+
+        <div class="form-actions">
+            <a class="btn" href="{% url 'movie_update' movie.pk %}">Редагувати</a>
+            <a class="btn btn-danger" href="{% url 'movie_delete' movie.pk %}">Видалити</a>
+            <a class="btn btn-secondary" href="{% url 'movie_list' %}">← До списку</a>
+        </div>
+    </div>
+{% endblock %}

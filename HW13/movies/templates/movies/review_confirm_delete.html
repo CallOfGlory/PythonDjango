@@ -1,0 +1,16 @@
+{% extends 'movies/base.html' %}
+
+{% block title %}Видалити відгук{% endblock %}
+
+{% block content %}
+    <h1>Видалити відгук?</h1>
+    <div class="form-card">
+        <p><strong>{{ review.username }}</strong> написав:</p>
+        <blockquote>{{ review.text|linebreaks }}</blockquote>
+        <form method="post" class="form-actions">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Так, видалити</button>
+            <a class="btn btn-secondary" href="{% url 'movie_detail' review.movie_id %}">Скасувати</a>
+        </form>
+    </div>
+{% endblock %}

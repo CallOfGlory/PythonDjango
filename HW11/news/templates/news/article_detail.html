@@ -1,0 +1,24 @@
+{% extends 'news/base.html' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+    <nav class="breadcrumb">
+        <a href="{% url 'home' %}">Головна</a> /
+        <a href="{% url 'category_detail' category.slug %}">{{ category.name }}</a> /
+        <span>{{ article.title }}</span>
+    </nav>
+
+    <article class="article-full">
+        <h1>{{ article.title }}</h1>
+        <p class="muted">{{ article.created_at|date:"d.m.Y H:i" }}</p>
+
+        {% if article.image %}
+            <img class="article-full__image" src="{{ article.image.url }}" alt="{{ article.title }}">
+        {% endif %}
+
+        <div class="article-full__content">
+            {{ article.content|linebreaks }}
+        </div>
+    </article>
+{% endblock %}
